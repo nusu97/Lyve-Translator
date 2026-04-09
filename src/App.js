@@ -2,44 +2,42 @@ import React, { useState } from 'react';
 import StreamView from './components/StreamView';
 import CreatorDashboard from './components/CreatorDashboard';
 import BusinessCase from './components/BusinessCase';
+import BottomNav from './components/BottomNav';
 import './App.css';
 
 const TABS = [
-    { id: 'viewer', label: '📺 Viewer', icon: '📺' },
-    { id: 'creator', label: '📊 Creator', icon: '📊' },
-    { id: 'business', label: '💼 Business', icon: '💼' },
+    { id: 'stream', label: '🎬 Stream View' },
+    { id: 'dashboard', label: '📊 Creator Dashboard' },
+    { id: 'business', label: '💡 Why This Matters' },
 ];
 
 function App() {
-    const [activeTab, setActiveTab] = useState('viewer');
+    const [activeTab, setActiveTab] = useState('stream');
 
     return (
         <div className="app-shell">
             {/* Top tab bar */}
-            <header className="app-header">
-                <div className="app-logo">
-                    <span className="logo-icon">🌐</span>
-                    <span className="logo-text">Lyve Translate</span>
-                </div>
-                <nav className="tab-bar">
-                    {TABS.map((tab) => (
-                        <button
-                            key={tab.id}
-                            className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
-                            onClick={() => setActiveTab(tab.id)}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
-                </nav>
-            </header>
+            <nav className="tab-bar">
+                {TABS.map((tab) => (
+                    <button
+                        key={tab.id}
+                        className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+                        onClick={() => setActiveTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </nav>
 
             {/* Tab content */}
             <main className="app-content">
-                {activeTab === 'viewer' && <StreamView />}
-                {activeTab === 'creator' && <CreatorDashboard />}
+                {activeTab === 'stream' && <StreamView />}
+                {activeTab === 'dashboard' && <CreatorDashboard />}
                 {activeTab === 'business' && <BusinessCase />}
             </main>
+
+            {/* Bottom navigation */}
+            <BottomNav />
         </div>
     );
 }

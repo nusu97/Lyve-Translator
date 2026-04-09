@@ -8,6 +8,7 @@
     --text-muted: #888;
     --accent: #00d4aa;
     --accent-2: #0096ff;
+    --lyve-blue: #0096ff;
 }
 
 /* === Reset === */
@@ -42,39 +43,14 @@ body {
     border-right: 1px solid var(--border);
 }
 
-/* === Header === */
-.app-header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 14px 0;
-    flex-shrink: 0;
-    z-index: 10;
-}
-
-.app-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.logo-icon {
-    font-size: 1.3rem;
-}
-
-.logo-text {
-    font-size: 1rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
 /* === Tab Bar === */
 .tab-bar {
     display: flex;
-    gap: 0;
+    flex-direction: row;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+    z-index: 10;
 }
 
 .tab-btn {
@@ -82,22 +58,23 @@ body {
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
-    color: var(--text-muted);
-    font-size: 0.78rem;
+    color: #999;
+    font-size: 13px;
     font-weight: 600;
-    padding: 8px 0;
+    padding: 12px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.2s, border-color 0.2s;
     font-family: inherit;
+    text-align: center;
 }
 
 .tab-btn.active {
-    color: var(--text);
-    border-bottom-color: var(--accent);
+    color: var(--lyve-blue);
+    border-bottom: 2px solid var(--lyve-blue);
 }
 
 .tab-btn:hover {
-    color: var(--text);
+    color: var(--lyve-blue);
 }
 
 /* === Main Content === */
