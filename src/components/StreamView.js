@@ -5,7 +5,8 @@ import messages from '../data/messages';
 import './StreamView.css';
 
 function StreamView() {
-    const [translateOn, setTranslateOn] = useState(false);
+    const [showLangDropdown, setShowLangDropdown] = useState(false);
+    const [preferredLang, setPreferredLang] = useState(null);
     const [visibleMessages, setVisibleMessages] = useState([]);
     const [viewerCount] = useState('2.4M');
     const chatEndRef = useRef(null);
@@ -32,6 +33,35 @@ function StreamView() {
 
     return (
         <div className="stream-view">
+            {/* Stream header */}
+            <div className="stream-header">
+                <button className="back-btn" aria-label="Go back">←</button>
+                <span className="stream-title">Speed Does Africa 🇪🇹</span>
+                <button
+                    className="globe-btn"
+                    aria-label="Toggle translation"
+                    onClick={() => setShowLangDropdown(!showLangDropdown)}
+                >
+                    🌐
+                </button>
+                {showLangDropdown && (
+                    <div className="lang-dropdown">
+                        <div
+                            className="lang-option"
+                            onClick={() => { setPreferredLang('en'); setShowLangDropdown(false); }}
+                        >
+                            English 🇬🇧
+                        </div>
+                        <div
+                            className="lang-option"
+                            onClick={() => { setPreferredLang('am'); setShowLangDropdown(false); }}
+                        >
+                            Amharic 🇪🇹
+                        </div>
+                    </div>
+                )}
+            </div>
+
             {/* Stream video placeholder */}
             <div className="stream-video">
                 <div className="stream-overlay-top">
@@ -53,25 +83,10 @@ function StreamView() {
                 </div>
             </div>
 
-            {/* Translation toggle */}
-            <div className="translate-bar">
-                <div className="translate-label">
-                    <span className="translate-icon">🌐</span>
-                    <span>Lyve Translate</span>
-                </div>
-                <button
-                    className={`translate-toggle ${translateOn ? 'on' : ''}`}
-                    onClick={() => setTranslateOn(!translateOn)}
-                    aria-label="Toggle translation"
-                >
-                    <span className="toggle-knob" />
-                </button>
-            </div>
-
             {/* Chat messages */}
             <div className="chat-container">
                 {visibleMessages.map((msg) => (
-                    <ChatMessage key={msg.id} message={msg} translateOn={translateOn} />
+                    <ChatMessage key={msg.id} message={msg} translateOn={preferredLang !== null} />
                 ))}
                 <div ref={chatEndRef} />
             </div>
