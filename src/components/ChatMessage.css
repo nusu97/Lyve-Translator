@@ -1,89 +1,54 @@
 .chat-message {
-    display: flex;
-    gap: 10px;
-    padding: 8px 14px;
-    animation: fadeInUp 0.3s ease;
+    padding: 10px 14px;
+    border-radius: var(--radius-md, 12px);
+    margin-bottom: 8px;
+    background: #ffffff;
+    box-shadow: var(--shadow-card, 0 1px 4px rgba(0, 0, 0, 0.06));
+    transition: transform 0.2s;
+    cursor: default;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.chat-message:hover {
+    transform: translateY(-1px);
 }
 
-.chat-avatar {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chat-body {
-    flex: 1;
-    min-width: 0;
-}
-
-.chat-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 2px;
-}
-
-.chat-username {
-    font-weight: 600;
-    font-size: 0.82rem;
-    color: var(--accent);
-}
-
-.chat-time {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
-
-.chat-text-wrapper {
-    line-height: 1.4;
-}
-
-.chat-text {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--text);
-    word-wrap: break-word;
-}
-
-.chat-text.translated {
-    color: #fff;
-    font-weight: 500;
-}
-
-.chat-original {
-    margin: 3px 0 0;
-    font-size: 0.75rem;
-    color: var(--text-muted);
+.chat-msg-top {
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-.lang-badge {
-    display: inline-block;
-    background: var(--surface-2);
-    color: var(--text-muted);
-    font-size: 0.65rem;
+.chat-flag {
+    font-size: 14px;
+}
+
+.chat-username {
+    color: var(--lyve-blue, #0096ff);
+    font-size: 13px;
     font-weight: 600;
-    padding: 1px 6px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
+}
+
+.lang-badge {
+    background: #F0F0F0;
+    color: var(--text-secondary, #666);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+.chat-text {
+    font-size: 14px;
+    color: var(--text-dark, #1a1a1a);
+    line-height: 1.4;
+    margin: 4px 0 0;
+}
+
+.chat-translated {
+    font-style: italic;
+    color: var(--text-secondary, #666);
+    font-size: 13px;
+    margin: 4px 0 0;
+    padding-top: 4px;
+    border-top: 1px dashed var(--border-light, #e0e0e0);
 }

@@ -16,6 +16,9 @@ function App() {
 
     return (
         <div className="app-shell">
+            {/* Decorative gradient bar */}
+            <div className="gradient-bar" />
+
             {/* Top tab bar */}
             <nav className="tab-bar">
                 {TABS.map((tab) => (

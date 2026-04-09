@@ -63,6 +63,7 @@ function StreamView() {
 
             {/* Video area */}
             <div className="video-area">
+                <div className="demo-badge">DEMO</div>
                 <div className="video-center">
                     <span>🔴 <strong>LIVE</strong> • 287,432 watching</span>
                 </div>
@@ -89,8 +90,17 @@ function StreamView() {
 
             {/* Chat messages */}
             <div className="chat-container">
+                <div className="chat-panel-header">Live Chat</div>
                 {visibleMessages.map((msg) => (
-                    <ChatMessage key={msg.id} message={msg} translateOn={preferredLang !== null} />
+                    <ChatMessage
+                        key={msg.id}
+                        username={msg.username}
+                        message={msg.original}
+                        language={msg.lang}
+                        translatedMessage={msg.translated}
+                        flag={msg.avatar}
+                        preferredLang={preferredLang}
+                    />
                 ))}
                 <div ref={chatEndRef} />
             </div>

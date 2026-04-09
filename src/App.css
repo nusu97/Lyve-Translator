@@ -9,6 +9,7 @@
     --accent: #00d4aa;
     --accent-2: #0096ff;
     --lyve-blue: #0096ff;
+    --lyve-gradient: linear-gradient(135deg, #00d4aa, #0096ff);
 }
 
 /* === Reset === */
@@ -41,6 +42,14 @@ body {
     overflow: hidden;
     border-left: 1px solid var(--border);
     border-right: 1px solid var(--border);
+}
+
+/* === Gradient Bar === */
+.gradient-bar {
+    height: 3px;
+    width: 100%;
+    background: var(--lyve-gradient);
+    flex-shrink: 0;
 }
 
 /* === Tab Bar === */
