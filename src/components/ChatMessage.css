@@ -1,0 +1,89 @@
+.chat-message {
+    display: flex;
+    gap: 10px;
+    padding: 8px 14px;
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-avatar {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.chat-username {
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--accent);
+}
+
+.chat-time {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.chat-text-wrapper {
+    line-height: 1.4;
+}
+
+.chat-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text);
+    word-wrap: break-word;
+}
+
+.chat-text.translated {
+    color: #fff;
+    font-weight: 500;
+}
+
+.chat-original {
+    margin: 3px 0 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lang-badge {
+    display: inline-block;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
