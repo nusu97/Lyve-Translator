@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
-import BottomNav from './BottomNav';
 import messages from '../data/messages';
 import './StreamView.css';
 
@@ -116,7 +115,6 @@ function StreamView() {
                 <button className="send-btn" aria-label="Send">🎁</button>
             </div>
 
-            <BottomNav />
         </div>
     );
 }

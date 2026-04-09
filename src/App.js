@@ -33,7 +33,7 @@ function App() {
             </nav>
 
             {/* Tab content */}
-            <main className="app-content">
+            <main className="app-content" key={activeTab}>
                 {activeTab === 'stream' && <StreamView />}
                 {activeTab === 'dashboard' && <CreatorDashboard />}
                 {activeTab === 'business' && <BusinessCase />}

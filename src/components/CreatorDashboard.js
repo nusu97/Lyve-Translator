@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreatorDashboard.css';
 
 function CreatorDashboard() {
@@ -26,6 +26,13 @@ function CreatorDashboard() {
         { emoji: '❤️', label: 'Love', pct: 15 },
         { emoji: '😮', label: 'Shock', pct: 10 },
     ];
+
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setMounted(true), 100);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <div className="dashboard">
@@ -56,7 +63,7 @@ function CreatorDashboard() {
                             <div className="lang-bar-track">
                                 <div
                                     className="lang-bar-fill"
-                                    style={{ width: `${l.pct}%` }}
+                                    style={{ width: mounted ? `${l.pct}%` : '0%' }}
                                 />
                             </div>
                             <span className="lang-pct">{l.pct}%</span>
