@@ -8,7 +8,6 @@ function StreamView() {
     const [showLangDropdown, setShowLangDropdown] = useState(false);
     const [preferredLang, setPreferredLang] = useState(null);
     const [visibleMessages, setVisibleMessages] = useState([]);
-    const [viewerCount] = useState('2.4M');
     const chatEndRef = useRef(null);
 
     // Simulate messages arriving one by one
@@ -62,26 +61,31 @@ function StreamView() {
                 )}
             </div>
 
-            {/* Stream video placeholder */}
-            <div className="stream-video">
-                <div className="stream-overlay-top">
-                    <div className="stream-info">
-                        <div className="streamer-name">
-                            <span className="live-dot" />
-                            iShowSpeed
-                        </div>
-                        <div className="stream-meta">
-                            <span className="viewer-count">👁 {viewerCount}</span>
-                            <span className="stream-tag">Ethiopia 🇪🇹</span>
-                        </div>
-                    </div>
+            {/* Video area */}
+            <div className="video-area">
+                <div className="video-center">
+                    <span>🔴 <strong>LIVE</strong> • 287,432 watching</span>
                 </div>
-                <div className="stream-placeholder-text">
-                    <span className="placeholder-emoji">🇪🇹</span>
-                    <span>iShowSpeed — Ethiopia Stream</span>
-                    <span className="placeholder-sub">10M views in 24hrs</span>
+                <div className="video-streamer">
+                    <div className="streamer-avatar">iS</div>
+                    <span className="streamer-name-label">iShowSpeed</span>
+                    <span className="verified-badge">✓</span>
                 </div>
             </div>
+
+            {/* Translation active banner */}
+            {preferredLang !== null && (
+                <div className="translate-banner">
+                    <span>🌐 Translating to {preferredLang === 'en' ? 'English' : 'Amharic'}</span>
+                    <button
+                        className="translate-close-btn"
+                        onClick={() => setPreferredLang(null)}
+                        aria-label="Turn off translation"
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
 
             {/* Chat messages */}
             <div className="chat-container">
