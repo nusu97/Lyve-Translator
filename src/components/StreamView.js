@@ -161,16 +161,26 @@ function StreamView() {
             </header>
 
             {/* Video area */}
-            <div className="video-area" role="img" aria-label="Live stream video player">
-                <div className="demo-badge" aria-hidden="true">DEMO</div>
-                <div className="video-center">
-                    <span className="live-badge" aria-label="Live broadcast">LIVE</span>
-                    <span className="viewer-count">287,432 watching</span>
-                </div>
-                <div className="video-streamer">
-                    <div className="streamer-avatar" aria-hidden="true">iS</div>
-                    <span className="streamer-name-label">iShowSpeed</span>
-                    <BadgeCheck size={16} className="verified-badge" aria-label="Verified creator" />
+            <div className="video-area" aria-label="Live stream video player">
+                <video
+                    className="stream-video"
+                    src={`${process.env.PUBLIC_URL}/speed-ethio-live.mp4`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+                <div className="video-overlay">
+                    <div className="demo-badge" aria-hidden="true">DEMO</div>
+                    <div className="video-center">
+                        <span className="live-badge" aria-label="Live broadcast">LIVE</span>
+                        <span className="viewer-count">287,432 watching</span>
+                    </div>
+                    <div className="video-streamer">
+                        <div className="streamer-avatar" aria-hidden="true">iS</div>
+                        <span className="streamer-name-label">iShowSpeed</span>
+                        <BadgeCheck size={16} className="verified-badge" aria-label="Verified creator" />
+                    </div>
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
-# Lyve Translator — Interview Prep Build Plan
+# Lyve Translator - Interview Prep Build Plan
 
 Personal reference for building out the project before the Lyve Chat internship interview.
-This file is gitignored — it won't be pushed to GitHub.
+This file is gitignored and won't be pushed to GitHub.
 
 ---
 
@@ -29,7 +29,7 @@ live-streaming tools."
 
 ## What's Missing (Mapped to Job Description)
 
-### Phase 1: Firebase Backend (PRIORITY — directly mentioned in job posting)
+### Phase 1: Firebase Backend (PRIORITY - directly mentioned in job posting)
 
 - [ ] **Firebase project setup**
   - Create project at firebase.google.com (free Spark plan)
@@ -37,7 +37,7 @@ live-streaming tools."
   - Enable Anonymous Authentication
   - Copy config to `src/services/firebase.js`
 
-- [ ] **Firebase Auth — anonymous sign-in**
+- [ ] **Firebase Auth - anonymous sign-in**
   - Auto sign-in on app load (no login form needed)
   - Generate random username + country flag on first visit
   - Show "You" indicator on own messages
@@ -118,17 +118,17 @@ live-streaming tools."
 ```
 src/
 ├── services/
-│   ├── firebase.js          # NEW — Firebase config + init
-│   ├── translateService.js   # EXISTS — no changes needed
-│   └── authService.js        # NEW — anonymous auth + user context
+│   ├── firebase.js          # NEW - Firebase config + init
+│   ├── translateService.js   # EXISTS - no changes needed
+│   └── authService.js        # NEW - anonymous auth + user context
 ├── components/
-│   ├── StreamView.js         # MODIFY — replace simulation with Firestore listener
-│   ├── ChatMessage.js        # MODIFY — add "You" indicator, loading state
+│   ├── StreamView.js         # MODIFY - replace simulation with Firestore listener
+│   ├── ChatMessage.js        # MODIFY - add "You" indicator, loading state
 │   └── ...
 ├── context/
-│   └── AuthContext.js        # NEW — React context for current user
+│   └── AuthContext.js        # NEW - React context for current user
 └── data/
-    └── messages.js           # KEEP as fallback — used when Firebase is offline
+    └── messages.js           # KEEP as fallback - used when Firebase is offline
 ```
 
 ---
@@ -137,14 +137,14 @@ src/
 
 When walking through this project, hit these:
 
-1. **"I chose Firebase because it's in your job description"** — shows you read the posting
-2. **"The translation service is decoupled from the data layer"** — explain how swapping
+1. **"I chose Firebase because it's in your job description"** - shows you read the posting
+2. **"The translation service is decoupled from the data layer"** - explain how swapping
    setInterval for onSnapshot only touched StreamView, not translateService
-3. **"I used anonymous auth to reduce friction"** — no signup wall for a chat demo
-4. **"The cache prevents redundant API calls"** — talk about the Map-based cache
-5. **"CSS custom properties make theming trivial"** — mention dark mode readiness
-6. **"Accessibility isn't an afterthought"** — point out the ARIA roles, skip link, reduced motion
-7. **"Here's what I'd do next"** — Stripe integration, WebSocket for scale, rate limiting
+3. **"I used anonymous auth to reduce friction"** - no signup wall for a chat demo
+4. **"The cache prevents redundant API calls"** - talk about the Map-based cache
+5. **"CSS custom properties make theming trivial"** - mention dark mode readiness
+6. **"Accessibility isn't an afterthought"** - point out the ARIA roles, skip link, reduced motion
+7. **"Here's what I'd do next"** - Stripe integration, WebSocket for scale, rate limiting
 
 ---
 
