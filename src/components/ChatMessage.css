@@ -13,6 +13,7 @@
 .chat-message:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
 }
 
 .chat-message:last-child {
@@ -43,7 +44,7 @@
 }
 
 .chat-username {
-    color: var(--primary);
+    color: var(--secondary);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -61,12 +62,12 @@
 }
 
 .lang-badge.en {
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(139, 92, 246, 0.2);
     color: var(--primary);
 }
 
 .lang-badge.am {
-    background: rgba(5, 150, 105, 0.1);
+    background: rgba(6, 214, 160, 0.2);
     color: var(--accent);
 }
 
@@ -87,7 +88,7 @@
     padding: 10px 12px;
     background: var(--translation-bg);
     border-radius: var(--radius-sm);
-    border-left: 3px solid var(--translation-border);
+    border-left: 3px solid var(--primary);
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
