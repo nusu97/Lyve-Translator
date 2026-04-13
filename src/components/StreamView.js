@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Globe, X, BadgeCheck, Gift } from 'lucide-react';
 import ChatMessage from './ChatMessage';
 import messages from '../data/messages';
+import { translateText } from '../services/translateService';
 import './StreamView.css';
 
 function StreamView() {
     const [showLangDropdown, setShowLangDropdown] = useState(false);
     const [preferredLang, setPreferredLang] = useState(null);
     const [visibleMessages, setVisibleMessages] = useState([]);
+    const [translations, setTranslations] = useState({});
     const chatEndRef = useRef(null);
     const dropdownRef = useRef(null);
 
@@ -52,6 +54,39 @@ function StreamView() {
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, []);
+
+    // Live translate messages when preferred language changes or new messages arrive
+    useEffect(() => {
+        if (!preferredLang) {
+            setTranslations({});
+            return;
+        }
+
+        let cancelled = false;
+
+        async function translateAll() {
+            const newTranslations = {};
+            await Promise.all(
+                visibleMessages.map(async (msg) => {
+                    if (msg.lang === preferredLang) return;
+                    try {
+                        const result = await translateText(msg.original, msg.lang, preferredLang);
+                        if (!cancelled) {
+                            newTranslations[msg.id] = result;
+                        }
+                    } catch {
+                        // keep original on failure
+                    }
+                })
+            );
+            if (!cancelled) {
+                setTranslations((prev) => ({ ...prev, ...newTranslations }));
+            }
+        }
+
+        translateAll();
+        return () => { cancelled = true; };
+    }, [preferredLang, visibleMessages]);
 
     const handleLangSelect = (lang) => {
         setPreferredLang(lang);
@@ -172,7 +207,7 @@ function StreamView() {
                         username={msg.username}
                         message={msg.original}
                         language={msg.lang}
-                        translatedMessage={msg.translated}
+                        translatedMessage={translations[msg.id] || null}
                         flag={msg.avatar}
                         preferredLang={preferredLang}
                     />
