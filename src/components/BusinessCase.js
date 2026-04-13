@@ -1,20 +1,21 @@
 import React from 'react';
+import { Globe, DoorOpen, DollarSign, Zap, ToggleRight, BarChart3, Clock, MessageSquare, Gift, Megaphone } from 'lucide-react';
 import './BusinessCase.css';
 
 function BusinessCase() {
     const problems = [
         {
-            icon: '🌍',
+            icon: Globe,
             title: '75% of live chat is non-English',
             desc: 'Creators like iShowSpeed pull global audiences, but most viewers can\'t understand each other.',
         },
         {
-            icon: '🚪',
+            icon: DoorOpen,
             title: 'Viewers leave when they feel excluded',
-            desc: 'If chat feels foreign, watch time drops — viewers disengage and churn.',
+            desc: 'If chat feels foreign, watch time drops - viewers disengage and churn.',
         },
         {
-            icon: '💸',
+            icon: DollarSign,
             title: 'Missed revenue from global fans',
             desc: 'Gifting, tipping, and e-commerce conversions all drop when viewers feel disconnected.',
         },
@@ -22,27 +23,27 @@ function BusinessCase() {
 
     const solutions = [
         {
-            icon: '⚡',
+            icon: Zap,
             title: 'Real-time AI Translation',
             desc: 'Every chat message translated instantly into the viewer\'s language. No lag, no friction.',
         },
         {
-            icon: '🎛',
+            icon: ToggleRight,
             title: 'One-toggle activation',
-            desc: 'Viewers flip a switch — done. Creators enable it from their dashboard for the whole stream.',
+            desc: 'Viewers flip a switch - done. Creators enable it from their dashboard for the whole stream.',
         },
         {
-            icon: '📊',
+            icon: BarChart3,
             title: 'Creator Analytics',
             desc: 'See which languages your audience speaks, sentiment breakdown, and engagement lift from translations.',
         },
     ];
 
     const metrics = [
-        { value: '40%', label: 'Longer watch time', icon: '⏱' },
-        { value: '3.2×', label: 'More non-EN chat', icon: '💬' },
-        { value: '28%', label: 'More gift revenue', icon: '🎁' },
-        { value: '60%', label: 'Viewers want this', icon: '📣' },
+        { value: '40%', label: 'Longer watch time', icon: Clock },
+        { value: '3.2x', label: 'More non-EN chat', icon: MessageSquare },
+        { value: '28%', label: 'More gift revenue', icon: Gift },
+        { value: '60%', label: 'Viewers want this', icon: Megaphone },
     ];
 
     return (
@@ -50,8 +51,7 @@ function BusinessCase() {
             <header className="bc-hero">
                 <h1 className="bc-title">Why Lyve Translate?</h1>
                 <p className="bc-subtitle">
-                    The iShowSpeed Ethiopia stream hit <strong>10M views in 24 hours</strong> —
-                    with viewers from 50+ countries. <br />
+                    The iShowSpeed Ethiopia stream hit <strong>10M views in 24 hours</strong> with viewers from 50+ countries. <br />
                     But most couldn't understand each other.
                 </p>
             </header>
@@ -63,13 +63,16 @@ function BusinessCase() {
                     Language barriers kill engagement
                 </h2>
                 <div className="bc-cards" role="list">
-                    {problems.map((p) => (
-                        <div className="bc-card" key={p.title} role="listitem">
-                            <span className="bc-card-icon" aria-hidden="true">{p.icon}</span>
-                            <h3 className="bc-card-title">{p.title}</h3>
-                            <p className="bc-card-desc">{p.desc}</p>
-                        </div>
-                    ))}
+                    {problems.map((p) => {
+                        const IconComponent = p.icon;
+                        return (
+                            <div className="bc-card" key={p.title} role="listitem">
+                                <span className="bc-card-icon" aria-hidden="true"><IconComponent size={28} /></span>
+                                <h3 className="bc-card-title">{p.title}</h3>
+                                <p className="bc-card-desc">{p.desc}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
 
@@ -80,13 +83,16 @@ function BusinessCase() {
                     Lyve Translate breaks the barrier
                 </h2>
                 <div className="bc-cards" role="list">
-                    {solutions.map((s) => (
-                        <div className="bc-card" key={s.title} role="listitem">
-                            <span className="bc-card-icon" aria-hidden="true">{s.icon}</span>
-                            <h3 className="bc-card-title">{s.title}</h3>
-                            <p className="bc-card-desc">{s.desc}</p>
-                        </div>
-                    ))}
+                    {solutions.map((s) => {
+                        const IconComponent = s.icon;
+                        return (
+                            <div className="bc-card" key={s.title} role="listitem">
+                                <span className="bc-card-icon" aria-hidden="true"><IconComponent size={28} /></span>
+                                <h3 className="bc-card-title">{s.title}</h3>
+                                <p className="bc-card-desc">{s.desc}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
 
@@ -97,13 +103,16 @@ function BusinessCase() {
                     Projected metrics (based on Ethiopia stream data)
                 </h2>
                 <div className="metrics-grid" role="list">
-                    {metrics.map((m) => (
-                        <div className="metric-card" key={m.label} role="listitem">
-                            <span className="metric-icon" aria-hidden="true">{m.icon}</span>
-                            <span className="metric-value">{m.value}</span>
-                            <span className="metric-label">{m.label}</span>
-                        </div>
-                    ))}
+                    {metrics.map((m) => {
+                        const IconComponent = m.icon;
+                        return (
+                            <div className="metric-card" key={m.label} role="listitem">
+                                <span className="metric-icon" aria-hidden="true"><IconComponent size={24} /></span>
+                                <span className="metric-value">{m.value}</span>
+                                <span className="metric-label">{m.label}</span>
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
 

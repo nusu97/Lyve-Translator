@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Video, BarChart3, Lightbulb } from 'lucide-react';
 import StreamView from './components/StreamView';
 import CreatorDashboard from './components/CreatorDashboard';
 import BusinessCase from './components/BusinessCase';
@@ -6,9 +7,9 @@ import BottomNav from './components/BottomNav';
 import './App.css';
 
 const TABS = [
-    { id: 'stream', label: 'Stream View', icon: '🎬' },
-    { id: 'dashboard', label: 'Creator Dashboard', icon: '📊' },
-    { id: 'business', label: 'Why This Matters', icon: '💡' },
+    { id: 'stream', label: 'Stream View', icon: Video },
+    { id: 'dashboard', label: 'Creator Dashboard', icon: BarChart3 },
+    { id: 'business', label: 'Why This Matters', icon: Lightbulb },
 ];
 
 function App() {
@@ -26,20 +27,23 @@ function App() {
 
             {/* Top tab bar */}
             <nav className="tab-bar" role="tablist" aria-label="Main views">
-                {TABS.map((tab) => (
-                    <button
-                        key={tab.id}
-                        role="tab"
-                        id={`tab-${tab.id}`}
-                        aria-selected={activeTab === tab.id}
-                        aria-controls={`panel-${tab.id}`}
-                        className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
-                        onClick={() => setActiveTab(tab.id)}
-                        type="button"
-                    >
-                        <span aria-hidden="true">{tab.icon}</span> {tab.label}
-                    </button>
-                ))}
+                {TABS.map((tab) => {
+                    const IconComponent = tab.icon;
+                    return (
+                        <button
+                            key={tab.id}
+                            role="tab"
+                            id={`tab-${tab.id}`}
+                            aria-selected={activeTab === tab.id}
+                            aria-controls={`panel-${tab.id}`}
+                            className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+                            onClick={() => setActiveTab(tab.id)}
+                            type="button"
+                        >
+                            <IconComponent size={16} aria-hidden="true" /> {tab.label}
+                        </button>
+                    );
+                })}
             </nav>
 
             {/* Tab content */}

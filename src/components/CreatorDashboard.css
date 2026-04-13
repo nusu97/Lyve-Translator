@@ -112,10 +112,15 @@
     gap: 10px;
 }
 
-.lang-flag {
-    font-size: 1.2rem;
+.lang-code {
+    font-size: 0.75rem;
+    font-weight: 700;
     width: 28px;
     text-align: center;
+    color: var(--text-secondary);
+    background: var(--surface-muted);
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
 }
 
 .lang-name {
@@ -174,8 +179,8 @@
     box-shadow: var(--glow-primary);
 }
 
-.sentiment-emoji {
-    font-size: 1.6rem;
+.sentiment-icon {
+    color: var(--primary);
 }
 
 .sentiment-pct {

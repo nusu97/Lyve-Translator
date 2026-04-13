@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, Globe, X, BadgeCheck, Gift } from 'lucide-react';
 import ChatMessage from './ChatMessage';
 import messages from '../data/messages';
 import './StreamView.css';
@@ -66,9 +67,9 @@ function StreamView() {
                     aria-label="Go back to previous page"
                     type="button"
                 >
-                    ←
+                    <ArrowLeft size={20} />
                 </button>
-                <h1 className="stream-title">Speed Does Africa 🇪🇹</h1>
+                <h1 className="stream-title">Speed Does Africa</h1>
                 <div ref={dropdownRef} style={{ position: 'relative' }}>
                     <button
                         className="globe-btn"
@@ -78,7 +79,7 @@ function StreamView() {
                         onClick={() => setShowLangDropdown(!showLangDropdown)}
                         type="button"
                     >
-                        🌐
+                        <Globe size={20} />
                     </button>
                     {showLangDropdown && (
                         <div 
@@ -94,7 +95,7 @@ function StreamView() {
                                 tabIndex={0}
                                 onKeyDown={(e) => e.key === 'Enter' && handleLangSelect('en')}
                             >
-                                🇬🇧 English
+                                EN - English
                             </div>
                             <div
                                 className={`lang-option ${preferredLang === 'am' ? 'selected' : ''}`}
@@ -104,7 +105,7 @@ function StreamView() {
                                 tabIndex={0}
                                 onKeyDown={(e) => e.key === 'Enter' && handleLangSelect('am')}
                             >
-                                🇪🇹 Amharic
+                                AM - Amharic
                             </div>
                             {preferredLang && (
                                 <div
@@ -116,7 +117,7 @@ function StreamView() {
                                     onKeyDown={(e) => e.key === 'Enter' && handleLangSelect(null)}
                                     style={{ color: 'var(--error)' }}
                                 >
-                                    ✕ Turn off translation
+                                    <X size={14} style={{ marginRight: '4px' }} /> Turn off translation
                                 </div>
                             )}
                         </div>
@@ -134,7 +135,7 @@ function StreamView() {
                 <div className="video-streamer">
                     <div className="streamer-avatar" aria-hidden="true">iS</div>
                     <span className="streamer-name-label">iShowSpeed</span>
-                    <span className="verified-badge" aria-label="Verified creator">✓</span>
+                    <BadgeCheck size={16} className="verified-badge" aria-label="Verified creator" />
                 </div>
             </div>
 
@@ -145,14 +146,14 @@ function StreamView() {
                     role="status" 
                     aria-live="polite"
                 >
-                    <span>🌐 Translating to {preferredLang === 'en' ? 'English' : 'Amharic'}</span>
+                    <span><Globe size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Translating to {preferredLang === 'en' ? 'English' : 'Amharic'}</span>
                     <button
                         className="translate-close-btn"
                         onClick={() => setPreferredLang(null)}
                         aria-label="Turn off translation"
                         type="button"
                     >
-                        ✕
+                        <X size={16} />
                     </button>
                 </div>
             )}
@@ -197,7 +198,7 @@ function StreamView() {
                     aria-label="Send gift"
                     type="button"
                 >
-                    🎁
+                    <Gift size={18} />
                 </button>
             </div>
 
