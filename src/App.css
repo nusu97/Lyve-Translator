@@ -1,56 +1,50 @@
-/* === CSS Variables (LyveChat Brand Theme) === */
+/* === CSS Variables (LyveChat Brand Theme - Light) === */
 :root {
     /* Core Colors - LyveChat Brand */
-    --primary: #8B5CF6;
-    --primary-hover: #7C3AED;
-    --secondary: #EC4899;
+    --primary: #5B7BF9;
+    --primary-hover: #4A6AE8;
+    --primary-light: rgba(91, 123, 249, 0.1);
+    --secondary: #BFFA5F;
+    --secondary-hover: #AEE94E;
     --accent: #06D6A0;
-    --accent-soft: rgba(6, 214, 160, 0.15);
     
-    /* Backgrounds - Dark theme for streaming */
-    --bg: #0A0A0F;
-    --bg-elevated: #12121A;
-    --surface: #1A1A24;
-    --surface-elevated: #222230;
-    --surface-muted: #2A2A38;
+    /* Backgrounds - Light/White theme */
+    --bg: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --surface: #FFFFFF;
+    --surface-elevated: #FAFAFA;
+    --surface-muted: #F5F5F5;
     
-    /* Text - High contrast for dark theme */
-    --text: #FFFFFF;
-    --text-secondary: #A0A0B0;
-    --text-muted: #6B6B7B;
-    --text-inverse: #0A0A0F;
+    /* Text */
+    --text: #1A1A1A;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --text-inverse: #FFFFFF;
     
     /* Borders */
-    --border: #2E2E3E;
-    --border-hover: #3E3E50;
+    --border: #E5E7EB;
+    --border-hover: #D1D5DB;
     
     /* States */
-    --success: #06D6A0;
+    --success: #10B981;
     --error: #EF4444;
     --warning: #F59E0B;
     --live: #EF4444;
     
     /* Chat-specific */
-    --user-bubble: #8B5CF6;
+    --user-bubble: #5B7BF9;
     --user-bubble-text: #FFFFFF;
-    --other-bubble: #1A1A24;
-    --other-bubble-text: #FFFFFF;
-    --translation-bg: rgba(139, 92, 246, 0.15);
-    --translation-border: #8B5CF6;
+    --other-bubble: #F3F4F6;
+    --other-bubble-text: #1A1A1A;
+    --translation-bg: rgba(91, 123, 249, 0.08);
+    --translation-border: #5B7BF9;
     
-    /* LyveChat Gradient */
-    --lyve-gradient: linear-gradient(135deg, #8B5CF6, #EC4899);
-    --lyve-gradient-soft: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
-    --lyve-gradient-vertical: linear-gradient(180deg, #8B5CF6, #EC4899);
+    /* Shadows - Subtle for light theme */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     
-    /* Shadows - Glow effects for dark theme */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --glow-primary: 0 0 20px rgba(139, 92, 246, 0.3);
-    --glow-secondary: 0 0 20px rgba(236, 72, 153, 0.3);
-    
-    /* Animation - Micro-interactions */
+    /* Animation */
     --transition-fast: 100ms ease;
     --transition-base: 200ms ease;
     --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -59,7 +53,7 @@
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 20px;
+    --radius-xl: 24px;
     --radius-full: 9999px;
     
     /* Touch targets - 48px minimum */
@@ -109,8 +103,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 24px;
-    background: var(--lyve-gradient);
-    color: var(--text);
+    background: var(--primary);
+    color: var(--text-inverse);
     border-radius: var(--radius-md);
     font-weight: 600;
     z-index: 1000;
@@ -131,15 +125,13 @@ body {
     background: var(--bg);
     position: relative;
     overflow: hidden;
-    border-left: 1px solid var(--border);
-    border-right: 1px solid var(--border);
 }
 
 /* === Gradient Bar === */
 .gradient-bar {
-    height: 3px;
+    height: 2px;
     width: 100%;
-    background: var(--lyve-gradient);
+    background: var(--primary);
     flex-shrink: 0;
 }
 
@@ -147,32 +139,36 @@ body {
 .tab-bar {
     display: flex;
     flex-direction: row;
-    background: var(--surface);
+    background: var(--bg);
     flex-shrink: 0;
     z-index: 10;
     border-bottom: 1px solid var(--border);
+    gap: 8px;
+    padding: 0 16px;
 }
 
 .tab-btn {
     flex: 1;
     background: none;
     border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
     padding: 14px 8px;
     min-height: var(--touch-target);
     cursor: pointer;
-    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
     font-family: inherit;
     text-align: center;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .tab-btn:hover {
-    color: var(--text-secondary);
-    background: var(--surface-muted);
+    color: var(--text);
 }
 
 .tab-btn:active {
@@ -180,9 +176,9 @@ body {
 }
 
 .tab-btn.active {
-    color: var(--text);
+    color: var(--primary);
     border-bottom-color: var(--primary);
-    background: var(--lyve-gradient-soft);
+    font-weight: 600;
 }
 
 .tab-btn:focus-visible {
@@ -223,64 +219,6 @@ body {
     100% { background-position: -200% 0; }
 }
 
-/* === Typing Indicator === */
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 12px;
-}
-
-.typing-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--text-muted);
-    border-radius: 50%;
-    animation: typingBounce 1.4s infinite ease-in-out;
-}
-
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typingBounce {
-    0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-    40% { transform: scale(1); opacity: 1; }
-}
-
-/* === Live Indicator Pulse === */
-.live-pulse {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.live-pulse::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: #EF4444;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-/* Legacy animation support */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* === Utility === */
 ::-webkit-scrollbar {
     width: 4px;
@@ -291,12 +229,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--surface-2);
+    background: var(--border);
     border-radius: 2px;
 }
 
 /* === Selection === */
 ::selection {
-    background: rgba(0, 212, 170, 0.3);
+    background: rgba(91, 123, 249, 0.2);
+    color: var(--text);
+}
     color: var(--text);
 }

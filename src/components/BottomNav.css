@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: var(--bg-elevated);
+    background: var(--bg);
     border-top: 1px solid var(--border);
     padding: 8px 0 max(env(safe-area-inset-bottom, 8px), 8px);
     position: sticky;
@@ -20,9 +20,9 @@
     min-width: var(--touch-target);
     min-height: var(--touch-target);
     justify-content: center;
-    padding: 4px 8px;
+    padding: 4px 12px;
     border-radius: var(--radius-md);
-    transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    transition: color var(--transition-fast);
     background: none;
     border: none;
     font-family: inherit;
@@ -30,7 +30,6 @@
 
 .nav-item:hover {
     color: var(--text-secondary);
-    background: var(--surface-muted);
 }
 
 .nav-item:active {
@@ -38,49 +37,43 @@
 }
 
 .nav-item.active {
-    color: var(--text);
+    color: var(--primary);
 }
 
 .nav-item.active .nav-icon {
-    transform: scale(1.1);
+    color: var(--primary);
 }
 
 .nav-icon {
     font-size: 22px;
     line-height: 1;
-    transition: transform var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-label {
-    font-size: 10px;
+    font-size: 11px;
     color: inherit;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    font-weight: 500;
 }
 
-/* Live button - center action */
+/* Create button - center action */
 .nav-live {
     position: relative;
 }
 
 .nav-live-btn {
-    width: 52px;
-    height: 36px;
-    background: var(--lyve-gradient);
-    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text);
-    box-shadow: var(--glow-primary);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    color: var(--text-muted);
+    transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
 .nav-live:hover .nav-live-btn {
     transform: scale(1.05);
-    box-shadow: var(--glow-secondary);
+    color: var(--primary);
 }
 
 .nav-live:active .nav-live-btn {

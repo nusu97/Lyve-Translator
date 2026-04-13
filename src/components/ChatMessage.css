@@ -2,18 +2,15 @@
     padding: 12px 16px;
     border-radius: var(--radius-md);
     margin-bottom: 10px;
-    background: var(--surface);
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    background: var(--bg);
+    transition: transform var(--transition-fast);
     cursor: default;
     animation: messageSlideIn 0.25s ease-out;
     border: 1px solid var(--border);
 }
 
 .chat-message:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-hover);
+    background: var(--surface-muted);
 }
 
 .chat-message:last-child {
@@ -39,12 +36,17 @@
 }
 
 .chat-flag {
-    font-size: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: var(--surface-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
     line-height: 1;
 }
 
 .chat-username {
-    color: var(--secondary);
+    color: var(--text);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -62,13 +64,13 @@
 }
 
 .lang-badge.en {
-    background: rgba(139, 92, 246, 0.2);
+    background: var(--primary-light);
     color: var(--primary);
 }
 
 .lang-badge.am {
-    background: rgba(6, 214, 160, 0.2);
-    color: var(--accent);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
 }
 
 .chat-text {
@@ -79,26 +81,18 @@
     word-wrap: break-word;
 }
 
-/* Translation styling - AI Native with clear visual hierarchy */
+/* Translation styling */
 .chat-translated {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    display: block;
     margin-top: 10px;
     padding: 10px 12px;
-    background: var(--translation-bg);
+    background: var(--primary-light);
     border-radius: var(--radius-sm);
     border-left: 3px solid var(--primary);
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
     animation: translationFadeIn 0.3s ease-out;
-}
-
-.chat-translated::before {
-    content: '🌐';
-    font-size: 14px;
-    flex-shrink: 0;
 }
 
 @keyframes translationFadeIn {
