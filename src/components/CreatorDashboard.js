@@ -35,32 +35,41 @@ function CreatorDashboard() {
     }, []);
 
     return (
-        <div className="dashboard">
-            <div className="dash-header">
-                <h2 className="dash-title">Creator Dashboard</h2>
+        <article className="dashboard" role="region" aria-label="Creator Dashboard">
+            <header className="dash-header">
+                <h1 className="dash-title">Creator Dashboard</h1>
                 <p className="dash-subtitle">iShowSpeed — Ethiopia Stream (Live)</p>
-            </div>
+            </header>
 
             {/* Stats grid */}
-            <div className="stats-grid">
-                {stats.map((s) => (
-                    <div className="stat-card" key={s.label}>
-                        <span className="stat-icon">{s.icon}</span>
-                        <span className="stat-value">{s.value}</span>
-                        <span className="stat-label">{s.label}</span>
-                    </div>
-                ))}
-            </div>
+            <section aria-label="Stream statistics">
+                <div className="stats-grid">
+                    {stats.map((s) => (
+                        <div className="stat-card" key={s.label}>
+                            <span className="stat-icon" aria-hidden="true">{s.icon}</span>
+                            <span className="stat-value" aria-label={`${s.label}: ${s.value}`}>{s.value}</span>
+                            <span className="stat-label">{s.label}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
             {/* Top languages */}
-            <div className="dash-section">
-                <h3 className="section-title">Chat Languages</h3>
-                <div className="lang-bars">
+            <section className="dash-section" aria-label="Chat language distribution">
+                <h2 className="section-title">Chat Languages</h2>
+                <div className="lang-bars" role="list">
                     {topLanguages.map((l) => (
-                        <div className="lang-row" key={l.lang}>
-                            <span className="lang-flag">{l.flag}</span>
+                        <div className="lang-row" key={l.lang} role="listitem">
+                            <span className="lang-flag" aria-hidden="true">{l.flag}</span>
                             <span className="lang-name">{l.lang}</span>
-                            <div className="lang-bar-track">
+                            <div 
+                                className="lang-bar-track" 
+                                role="progressbar"
+                                aria-valuenow={l.pct}
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                aria-label={`${l.lang}: ${l.pct}%`}
+                            >
                                 <div
                                     className="lang-bar-fill"
                                     style={{ width: mounted ? `${l.pct}%` : '0%' }}
@@ -70,32 +79,32 @@ function CreatorDashboard() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* Sentiment */}
-            <div className="dash-section">
-                <h3 className="section-title">Chat Sentiment</h3>
+            <section className="dash-section" aria-label="Chat sentiment analysis">
+                <h2 className="section-title">Chat Sentiment</h2>
                 <div className="sentiment-row">
                     {sentimentData.map((s) => (
                         <div className="sentiment-card" key={s.label}>
-                            <span className="sentiment-emoji">{s.emoji}</span>
+                            <span className="sentiment-emoji" aria-hidden="true">{s.emoji}</span>
                             <span className="sentiment-pct">{s.pct}%</span>
                             <span className="sentiment-label">{s.label}</span>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* Insight callout */}
-            <div className="dash-insight">
-                <span className="insight-icon">💡</span>
+            <aside className="dash-insight" role="note">
+                <span className="insight-icon" aria-hidden="true">💡</span>
                 <div>
                     <strong>Insight:</strong> Enabling Lyve Translate increased non-English
                     chat participation by <strong>3.2×</strong> and average watch time by{' '}
                     <strong>40%</strong> for this stream.
                 </div>
-            </div>
-        </div>
+            </aside>
+        </article>
     );
 }
 

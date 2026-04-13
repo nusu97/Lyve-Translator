@@ -1,54 +1,147 @@
 .chat-message {
-    padding: 10px 14px;
-    border-radius: var(--radius-md, 12px);
-    margin-bottom: 8px;
-    background: #ffffff;
-    box-shadow: var(--shadow-card, 0 1px 4px rgba(0, 0, 0, 0.06));
-    transition: transform 0.2s;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     cursor: default;
+    animation: messageSlideIn 0.25s ease-out;
+    border: 1px solid var(--border);
 }
 
 .chat-message:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+
+.chat-message:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .chat-msg-top {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    margin-bottom: 6px;
 }
 
 .chat-flag {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .chat-username {
-    color: var(--lyve-blue, #0096ff);
+    color: var(--secondary);
     font-size: 13px;
     font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .lang-badge {
-    background: #F0F0F0;
-    color: var(--text-secondary, #666);
+    background: var(--surface-muted);
+    color: var(--text-secondary);
     font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-    margin-left: 8px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    margin-left: auto;
+    letter-spacing: 0.5px;
+}
+
+.lang-badge.en {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--primary);
+}
+
+.lang-badge.am {
+    background: rgba(6, 214, 160, 0.2);
+    color: var(--accent);
 }
 
 .chat-text {
     font-size: 14px;
-    color: var(--text-dark, #1a1a1a);
-    line-height: 1.4;
-    margin: 4px 0 0;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+    word-wrap: break-word;
 }
 
+/* Translation styling - AI Native with clear visual hierarchy */
 .chat-translated {
-    font-style: italic;
-    color: var(--text-secondary, #666);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--translation-bg);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--primary);
     font-size: 13px;
-    margin: 4px 0 0;
-    padding-top: 4px;
-    border-top: 1px dashed var(--border-light, #e0e0e0);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    animation: translationFadeIn 0.3s ease-out;
+}
+
+.chat-translated::before {
+    content: '🌐';
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+@keyframes translationFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Typing indicator for messages being translated */
+.translating-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    background: var(--surface-muted);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.translating-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.translating-dots span {
+    width: 5px;
+    height: 5px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.translating-dots span:nth-child(2) { animation-delay: 0.2s; }
+.translating-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
 }
