@@ -2,153 +2,169 @@
     padding: 20px 16px 40px;
     overflow-y: auto;
     height: 100%;
+    background: var(--bg);
 }
 
 .bc-hero {
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 
 .bc-title {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--text);
+    letter-spacing: -0.02em;
 }
 
 .bc-subtitle {
-    margin: 8px 0 0;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.5;
+    margin: 10px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 /* Sections */
 .bc-section {
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 
 .bc-section-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text);
-    margin: 0 0 14px;
+    margin: 0 0 16px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .section-marker {
     display: inline-block;
     font-size: 0.65rem;
     font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
     text-transform: uppercase;
     letter-spacing: 0.8px;
     flex-shrink: 0;
 }
 
 .section-marker.problem {
-    background: rgba(255, 59, 92, 0.15);
-    color: #ff3b5c;
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--error);
 }
 
 .section-marker.solution {
-    background: rgba(0, 212, 170, 0.15);
+    background: var(--accent-soft);
     color: var(--accent);
 }
 
 .section-marker.metrics {
-    background: rgba(0, 150, 255, 0.15);
-    color: var(--accent-2);
+    background: var(--lyve-gradient-soft);
+    color: var(--primary);
 }
 
 /* Cards */
 .bc-cards {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .bc-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.bc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .bc-card-icon {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .bc-card-title {
-    margin: 0 0 4px;
-    font-size: 0.88rem;
+    margin: 0 0 6px;
+    font-size: 0.92rem;
     font-weight: 700;
     color: var(--text);
 }
 
 .bc-card-desc {
     margin: 0;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.45;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
 
 /* Metrics grid */
 .metrics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 12px;
 }
 
 .metric-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 12px;
+    border-radius: var(--radius-md);
+    padding: 18px 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     text-align: center;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
 }
 
 .metric-icon {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .metric-value {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    background: var(--lyve-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .metric-label {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
 }
 
 /* CTA */
 .bc-cta {
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 150, 255, 0.1));
-    border: 1px solid rgba(0, 212, 170, 0.2);
-    border-radius: 14px;
-    padding: 18px;
+    background: var(--lyve-gradient-soft);
+    border: 1px solid var(--primary);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-md);
+    padding: 20px;
     text-align: center;
 }
 
 .bc-cta p {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
 }

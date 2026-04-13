@@ -46,75 +46,75 @@ function BusinessCase() {
     ];
 
     return (
-        <div className="business-case">
-            <div className="bc-hero">
-                <h2 className="bc-title">Why Lyve Translate?</h2>
+        <article className="business-case" role="region" aria-label="Why Lyve Translate">
+            <header className="bc-hero">
+                <h1 className="bc-title">Why Lyve Translate?</h1>
                 <p className="bc-subtitle">
                     The iShowSpeed Ethiopia stream hit <strong>10M views in 24 hours</strong> —
                     with viewers from 50+ countries. <br />
                     But most couldn't understand each other.
                 </p>
-            </div>
+            </header>
 
             {/* Problem */}
-            <div className="bc-section">
-                <h3 className="bc-section-title">
+            <section className="bc-section" aria-label="The problem">
+                <h2 className="bc-section-title">
                     <span className="section-marker problem">Problem</span>
                     Language barriers kill engagement
-                </h3>
-                <div className="bc-cards">
+                </h2>
+                <div className="bc-cards" role="list">
                     {problems.map((p) => (
-                        <div className="bc-card" key={p.title}>
-                            <span className="bc-card-icon">{p.icon}</span>
-                            <h4 className="bc-card-title">{p.title}</h4>
+                        <div className="bc-card" key={p.title} role="listitem">
+                            <span className="bc-card-icon" aria-hidden="true">{p.icon}</span>
+                            <h3 className="bc-card-title">{p.title}</h3>
                             <p className="bc-card-desc">{p.desc}</p>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* Solution */}
-            <div className="bc-section">
-                <h3 className="bc-section-title">
+            <section className="bc-section" aria-label="The solution">
+                <h2 className="bc-section-title">
                     <span className="section-marker solution">Solution</span>
                     Lyve Translate breaks the barrier
-                </h3>
-                <div className="bc-cards">
+                </h2>
+                <div className="bc-cards" role="list">
                     {solutions.map((s) => (
-                        <div className="bc-card" key={s.title}>
-                            <span className="bc-card-icon">{s.icon}</span>
-                            <h4 className="bc-card-title">{s.title}</h4>
+                        <div className="bc-card" key={s.title} role="listitem">
+                            <span className="bc-card-icon" aria-hidden="true">{s.icon}</span>
+                            <h3 className="bc-card-title">{s.title}</h3>
                             <p className="bc-card-desc">{s.desc}</p>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* Metrics */}
-            <div className="bc-section">
-                <h3 className="bc-section-title">
+            <section className="bc-section" aria-label="Impact metrics">
+                <h2 className="bc-section-title">
                     <span className="section-marker metrics">Impact</span>
                     Projected metrics (based on Ethiopia stream data)
-                </h3>
-                <div className="metrics-grid">
+                </h2>
+                <div className="metrics-grid" role="list">
                     {metrics.map((m) => (
-                        <div className="metric-card" key={m.label}>
-                            <span className="metric-icon">{m.icon}</span>
+                        <div className="metric-card" key={m.label} role="listitem">
+                            <span className="metric-icon" aria-hidden="true">{m.icon}</span>
                             <span className="metric-value">{m.value}</span>
                             <span className="metric-label">{m.label}</span>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* CTA */}
-            <div className="bc-cta">
+            <aside className="bc-cta" role="note">
                 <p>
                     Lyve Translate turns every global stream into a <strong>shared experience</strong>.
                     More engagement. More revenue. One toggle.
                 </p>
-            </div>
-        </div>
+            </aside>
+        </article>
     );
 }
 

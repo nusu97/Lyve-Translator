@@ -8,6 +8,7 @@ function StreamView() {
     const [preferredLang, setPreferredLang] = useState(null);
     const [visibleMessages, setVisibleMessages] = useState([]);
     const chatEndRef = useRef(null);
+    const dropdownRef = useRef(null);
 
     // Simulate messages arriving one by one
     useEffect(() => {
@@ -29,58 +30,127 @@ function StreamView() {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [visibleMessages]);
 
+    // Close dropdown on outside click
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowLangDropdown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    // Close dropdown on Escape key
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setShowLangDropdown(false);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleLangSelect = (lang) => {
+        setPreferredLang(lang);
+        setShowLangDropdown(false);
+    };
+
     return (
-        <div className="stream-view">
+        <div className="stream-view" role="main">
             {/* Stream header */}
-            <div className="stream-header">
-                <button className="back-btn" aria-label="Go back">←</button>
-                <span className="stream-title">Speed Does Africa 🇪🇹</span>
-                <button
-                    className="globe-btn"
-                    aria-label="Toggle translation"
-                    onClick={() => setShowLangDropdown(!showLangDropdown)}
+            <header className="stream-header">
+                <button 
+                    className="back-btn" 
+                    aria-label="Go back to previous page"
+                    type="button"
                 >
-                    🌐
+                    ←
                 </button>
-                {showLangDropdown && (
-                    <div className="lang-dropdown">
-                        <div
-                            className="lang-option"
-                            onClick={() => { setPreferredLang('en'); setShowLangDropdown(false); }}
+                <h1 className="stream-title">Speed Does Africa 🇪🇹</h1>
+                <div ref={dropdownRef} style={{ position: 'relative' }}>
+                    <button
+                        className="globe-btn"
+                        aria-label={preferredLang ? `Translation: ${preferredLang === 'en' ? 'English' : 'Amharic'}` : 'Toggle translation language'}
+                        aria-expanded={showLangDropdown}
+                        aria-haspopup="listbox"
+                        onClick={() => setShowLangDropdown(!showLangDropdown)}
+                        type="button"
+                    >
+                        🌐
+                    </button>
+                    {showLangDropdown && (
+                        <div 
+                            className="lang-dropdown" 
+                            role="listbox"
+                            aria-label="Select translation language"
                         >
-                            English 🇬🇧
+                            <div
+                                className={`lang-option ${preferredLang === 'en' ? 'selected' : ''}`}
+                                role="option"
+                                aria-selected={preferredLang === 'en'}
+                                onClick={() => handleLangSelect('en')}
+                                tabIndex={0}
+                                onKeyDown={(e) => e.key === 'Enter' && handleLangSelect('en')}
+                            >
+                                🇬🇧 English
+                            </div>
+                            <div
+                                className={`lang-option ${preferredLang === 'am' ? 'selected' : ''}`}
+                                role="option"
+                                aria-selected={preferredLang === 'am'}
+                                onClick={() => handleLangSelect('am')}
+                                tabIndex={0}
+                                onKeyDown={(e) => e.key === 'Enter' && handleLangSelect('am')}
+                            >
+                                🇪🇹 Amharic
+                            </div>
+                            {preferredLang && (
+                                <div
+                                    className="lang-option"
+                                    role="option"
+                                    aria-selected={false}
+                                    onClick={() => handleLangSelect(null)}
+                                    tabIndex={0}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleLangSelect(null)}
+                                    style={{ color: 'var(--error)' }}
+                                >
+                                    ✕ Turn off translation
+                                </div>
+                            )}
                         </div>
-                        <div
-                            className="lang-option"
-                            onClick={() => { setPreferredLang('am'); setShowLangDropdown(false); }}
-                        >
-                            Amharic 🇪🇹
-                        </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </header>
 
             {/* Video area */}
-            <div className="video-area">
-                <div className="demo-badge">DEMO</div>
+            <div className="video-area" role="img" aria-label="Live stream video player">
+                <div className="demo-badge" aria-hidden="true">DEMO</div>
                 <div className="video-center">
-                    <span>🔴 <strong>LIVE</strong> • 287,432 watching</span>
+                    <span className="live-badge" aria-label="Live broadcast">LIVE</span>
+                    <span className="viewer-count">287,432 watching</span>
                 </div>
                 <div className="video-streamer">
-                    <div className="streamer-avatar">iS</div>
+                    <div className="streamer-avatar" aria-hidden="true">iS</div>
                     <span className="streamer-name-label">iShowSpeed</span>
-                    <span className="verified-badge">✓</span>
+                    <span className="verified-badge" aria-label="Verified creator">✓</span>
                 </div>
             </div>
 
             {/* Translation active banner */}
             {preferredLang !== null && (
-                <div className="translate-banner">
+                <div 
+                    className="translate-banner" 
+                    role="status" 
+                    aria-live="polite"
+                >
                     <span>🌐 Translating to {preferredLang === 'en' ? 'English' : 'Amharic'}</span>
                     <button
                         className="translate-close-btn"
                         onClick={() => setPreferredLang(null)}
                         aria-label="Turn off translation"
+                        type="button"
                     >
                         ✕
                     </button>
@@ -88,8 +158,13 @@ function StreamView() {
             )}
 
             {/* Chat messages */}
-            <div className="chat-container">
-                <div className="chat-panel-header">Live Chat</div>
+            <section 
+                className="chat-container" 
+                aria-label="Live chat messages"
+                role="log"
+                aria-live="polite"
+            >
+                <h2 className="chat-panel-header">Live Chat</h2>
                 {visibleMessages.map((msg) => (
                     <ChatMessage
                         key={msg.id}
@@ -101,20 +176,45 @@ function StreamView() {
                         preferredLang={preferredLang}
                     />
                 ))}
-                <div ref={chatEndRef} />
-            </div>
+                <div ref={chatEndRef} aria-hidden="true" />
+            </section>
 
             {/* Chat input bar */}
             <div className="chat-input-bar">
+                <label htmlFor="chat-input" className="visually-hidden">
+                    Type a chat message
+                </label>
                 <input
+                    id="chat-input"
                     className="chat-input"
                     type="text"
                     placeholder="Say something..."
                     readOnly
+                    aria-label="Chat message input (demo mode)"
                 />
-                <button className="send-btn" aria-label="Send">🎁</button>
+                <button 
+                    className="send-btn" 
+                    aria-label="Send gift"
+                    type="button"
+                >
+                    🎁
+                </button>
             </div>
 
+            {/* Visually hidden styles for accessibility */}
+            <style>{`
+                .visually-hidden {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border: 0;
+                }
+            `}</style>
         </div>
     );
 }

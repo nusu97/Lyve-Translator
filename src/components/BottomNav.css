@@ -4,7 +4,7 @@
     align-items: center;
     background: var(--surface);
     border-top: 1px solid var(--border);
-    padding: 6px 0 env(safe-area-inset-bottom, 8px);
+    padding: 8px 0 max(env(safe-area-inset-bottom, 8px), 8px);
     position: sticky;
     bottom: 0;
     z-index: 10;
@@ -14,35 +14,81 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.2s;
+    color: var(--text-muted);
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    background: none;
+    border: none;
+    font-family: inherit;
+}
+
+.nav-item:hover {
+    color: var(--primary);
+    background: var(--surface-muted);
+}
+
+.nav-item:active {
+    transform: scale(0.95);
 }
 
 .nav-item.active {
-    opacity: 1;
+    color: var(--primary);
+}
+
+.nav-item.active .nav-icon {
+    transform: scale(1.1);
 }
 
 .nav-icon {
-    font-size: 1.25rem;
+    font-size: 22px;
+    line-height: 1;
+    transition: transform var(--transition-fast);
 }
 
 .nav-label {
-    font-size: 0.6rem;
-    color: var(--text-muted);
-    font-weight: 500;
+    font-size: 10px;
+    color: inherit;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Live button - center action */
+.nav-live {
+    position: relative;
 }
 
 .nav-live-btn {
-    width: 44px;
-    height: 30px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    border-radius: 8px;
+    width: 52px;
+    height: 36px;
+    background: var(--lyve-gradient);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nav-live:hover .nav-live-btn {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.nav-live:active .nav-live-btn {
+    transform: scale(0.95);
+}
+
+/* Focus states for accessibility */
+.nav-item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
