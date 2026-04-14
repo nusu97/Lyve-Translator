@@ -4,6 +4,7 @@ import { collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp 
 import { db } from '../services/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import ChatMessage from './ChatMessage';
+import simulatedMessages from '../data/messages';
 import { translateText } from '../services/translateService';
 import './StreamView.css';
 
@@ -12,10 +13,26 @@ function StreamView() {
     const [showLangDropdown, setShowLangDropdown] = useState(false);
     const [preferredLang, setPreferredLang] = useState(null);
     const [chatInput, setChatInput] = useState('');
-    const [visibleMessages, setVisibleMessages] = useState([]);
+    const [simulatedVisible, setSimulatedVisible] = useState([]);
+    const [firestoreMessages, setFirestoreMessages] = useState([]);
     const [translations, setTranslations] = useState({});
     const chatEndRef = useRef(null);
     const dropdownRef = useRef(null);
+
+    // Simulate messages arriving one by one (demo messages)
+    useEffect(() => {
+        let index = 0;
+        setSimulatedVisible([simulatedMessages[0]]);
+        const interval = setInterval(() => {
+            index++;
+            if (index < simulatedMessages.length) {
+                setSimulatedVisible((prev) => [...prev, simulatedMessages[index]]);
+            } else {
+                clearInterval(interval);
+            }
+        }, 1200);
+        return () => clearInterval(interval);
+    }, []);
 
     // Real-time Firestore listener
     useEffect(() => {
@@ -29,15 +46,28 @@ function StreamView() {
                 id: doc.id,
                 ...doc.data(),
             }));
-            setVisibleMessages(msgs);
+            setFirestoreMessages(msgs);
         });
         return () => unsubscribe();
     }, []);
 
+    // Combine simulated + Firestore messages
+    const allMessages = [
+        ...simulatedVisible.map((msg) => ({
+            id: `sim-${msg.id}`,
+            text: msg.original,
+            lang: msg.lang,
+            username: msg.username,
+            avatar: msg.avatar,
+            isSimulated: true,
+        })),
+        ...firestoreMessages,
+    ];
+
     // Auto-scroll to latest message
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [visibleMessages]);
+    }, [allMessages.length]);
 
     // Close dropdown on outside click
     useEffect(() => {
@@ -73,7 +103,7 @@ function StreamView() {
         async function translateAll() {
             const newTranslations = {};
             await Promise.all(
-                visibleMessages.map(async (msg) => {
+                allMessages.map(async (msg) => {
                     if (msg.lang === preferredLang) return;
                     try {
                         const result = await translateText(msg.text, msg.lang, preferredLang);
@@ -92,7 +122,7 @@ function StreamView() {
 
         translateAll();
         return () => { cancelled = true; };
-    }, [preferredLang, visibleMessages]);
+    }, [preferredLang, simulatedVisible, firestoreMessages]);
 
     const handleLangSelect = (lang) => {
         setPreferredLang(lang);
@@ -234,7 +264,7 @@ function StreamView() {
                 aria-live="polite"
             >
                 <h2 className="chat-panel-header">Live Chat</h2>
-                {visibleMessages.map((msg) => (
+                {allMessages.map((msg) => (
                     <ChatMessage
                         key={msg.id}
                         username={msg.username}
