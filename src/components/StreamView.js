@@ -1,31 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, Globe, X, BadgeCheck, Gift } from 'lucide-react';
+import { ArrowLeft, Globe, X, BadgeCheck, Send } from 'lucide-react';
+import { collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { db } from '../services/firebase';
+import { useAuth } from '../contexts/AuthContext';
 import ChatMessage from './ChatMessage';
-import messages from '../data/messages';
 import { translateText } from '../services/translateService';
 import './StreamView.css';
 
 function StreamView() {
+    const { user } = useAuth();
     const [showLangDropdown, setShowLangDropdown] = useState(false);
     const [preferredLang, setPreferredLang] = useState(null);
+    const [chatInput, setChatInput] = useState('');
     const [visibleMessages, setVisibleMessages] = useState([]);
     const [translations, setTranslations] = useState({});
     const chatEndRef = useRef(null);
     const dropdownRef = useRef(null);
 
-    // Simulate messages arriving one by one
+    // Real-time Firestore listener
     useEffect(() => {
-        let index = 0;
-        setVisibleMessages([messages[0]]);
-        const interval = setInterval(() => {
-            index++;
-            if (index < messages.length) {
-                setVisibleMessages((prev) => [...prev, messages[index]]);
-            } else {
-                clearInterval(interval);
-            }
-        }, 1200);
-        return () => clearInterval(interval);
+        const q = query(
+            collection(db, 'messages'),
+            orderBy('timestamp', 'asc'),
+            limit(50)
+        );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const msgs = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setVisibleMessages(msgs);
+        });
+        return () => unsubscribe();
     }, []);
 
     // Auto-scroll to latest message
@@ -70,7 +76,7 @@ function StreamView() {
                 visibleMessages.map(async (msg) => {
                     if (msg.lang === preferredLang) return;
                     try {
-                        const result = await translateText(msg.original, msg.lang, preferredLang);
+                        const result = await translateText(msg.text, msg.lang, preferredLang);
                         if (!cancelled) {
                             newTranslations[msg.id] = result;
                         }
@@ -93,12 +99,29 @@ function StreamView() {
         setShowLangDropdown(false);
     };
 
+    // Send a message to Firestore
+    const handleSend = async () => {
+        const text = chatInput.trim();
+        if (!text || !user) return;
+
+        const browserLang = (navigator.language || 'en').split('-')[0];
+        await addDoc(collection(db, 'messages'), {
+            text,
+            lang: browserLang,
+            userId: user.uid,
+            username: user.username,
+            avatar: user.flag,
+            timestamp: serverTimestamp(),
+        });
+        setChatInput('');
+    };
+
     return (
         <div className="stream-view" role="main">
             {/* Stream header */}
             <header className="stream-header">
-                <button 
-                    className="back-btn" 
+                <button
+                    className="back-btn"
                     aria-label="Go back to previous page"
                     type="button"
                 >
@@ -117,8 +140,8 @@ function StreamView() {
                         <Globe size={20} />
                     </button>
                     {showLangDropdown && (
-                        <div 
-                            className="lang-dropdown" 
+                        <div
+                            className="lang-dropdown"
                             role="listbox"
                             aria-label="Select translation language"
                         >
@@ -186,9 +209,9 @@ function StreamView() {
 
             {/* Translation active banner */}
             {preferredLang !== null && (
-                <div 
-                    className="translate-banner" 
-                    role="status" 
+                <div
+                    className="translate-banner"
+                    role="status"
                     aria-live="polite"
                 >
                     <span><Globe size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Translating to {preferredLang === 'en' ? 'English' : 'Amharic'}</span>
@@ -204,8 +227,8 @@ function StreamView() {
             )}
 
             {/* Chat messages */}
-            <section 
-                className="chat-container" 
+            <section
+                className="chat-container"
                 aria-label="Live chat messages"
                 role="log"
                 aria-live="polite"
@@ -215,11 +238,12 @@ function StreamView() {
                     <ChatMessage
                         key={msg.id}
                         username={msg.username}
-                        message={msg.original}
+                        message={msg.text}
                         language={msg.lang}
                         translatedMessage={translations[msg.id] || null}
                         flag={msg.avatar}
                         preferredLang={preferredLang}
+                        isOwn={user && msg.userId === user.uid}
                     />
                 ))}
                 <div ref={chatEndRef} aria-hidden="true" />
@@ -235,15 +259,18 @@ function StreamView() {
                     className="chat-input"
                     type="text"
                     placeholder="Say something..."
-                    readOnly
-                    aria-label="Chat message input (demo mode)"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                    aria-label="Chat message input"
                 />
-                <button 
-                    className="send-btn" 
-                    aria-label="Send gift"
+                <button
+                    className="send-btn"
+                    aria-label="Send message"
                     type="button"
+                    onClick={handleSend}
                 >
-                    <Gift size={18} />
+                    <Send size={18} />
                 </button>
             </div>
 

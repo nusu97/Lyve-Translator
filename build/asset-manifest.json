@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/nusu97/Lyve-Translator/static/css/main.6a02e3c3.css",
-    "main.js": "/nusu97/Lyve-Translator/static/js/main.aa8a7403.js",
-    "index.html": "/nusu97/Lyve-Translator/index.html",
-    "main.6a02e3c3.css.map": "/nusu97/Lyve-Translator/static/css/main.6a02e3c3.css.map",
-    "main.aa8a7403.js.map": "/nusu97/Lyve-Translator/static/js/main.aa8a7403.js.map"
+    "main.css": "./static/css/main.e8b8e8f4.css",
+    "main.js": "./static/js/main.750e317b.js",
+    "index.html": "./index.html",
+    "main.e8b8e8f4.css.map": "./static/css/main.e8b8e8f4.css.map",
+    "main.750e317b.js.map": "./static/js/main.750e317b.js.map"
   },
   "entrypoints": [
-    "static/css/main.6a02e3c3.css",
-    "static/js/main.aa8a7403.js"
+    "static/css/main.e8b8e8f4.css",
+    "static/js/main.750e317b.js"
   ]
 }

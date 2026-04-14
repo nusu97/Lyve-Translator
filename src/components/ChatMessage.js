@@ -1,20 +1,20 @@
 import React from 'react';
 import './ChatMessage.css';
 
-function ChatMessage({ username, message, language, translatedMessage, flag, preferredLang }) {
+function ChatMessage({ username, message, language, translatedMessage, flag, preferredLang, isOwn }) {
     const langBadge = language === 'en' ? 'EN' : language === 'am' ? 'AM' : language.toUpperCase();
     const langLabel = language === 'en' ? 'English' : language === 'am' ? 'Amharic' : language;
     const showTranslation = preferredLang !== null && language !== preferredLang && translatedMessage;
 
     return (
-        <article 
+        <article
             className="chat-message"
             aria-label={`Message from ${username}`}
         >
             <div className="chat-msg-top">
                 <span className="chat-flag" aria-hidden="true">{flag}</span>
-                <span className="chat-username">{username}</span>
-                <span 
+                <span className="chat-username">{username}{isOwn && <span className="you-badge"> (You)</span>}</span>
+                <span
                     className={`lang-badge ${language}`}
                     aria-label={`Written in ${langLabel}`}
                 >
@@ -23,7 +23,7 @@ function ChatMessage({ username, message, language, translatedMessage, flag, pre
             </div>
             <p className="chat-text">{message}</p>
             {showTranslation && (
-                <p 
+                <p
                     className="chat-translated"
                     aria-label={`Translated to ${preferredLang === 'en' ? 'English' : 'Amharic'}`}
                 >
